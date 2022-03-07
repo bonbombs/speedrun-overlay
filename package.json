@@ -1,0 +1,30 @@
+{
+  "name": "speedrun-overlay",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile-styles": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 -w sass/ -o public/css/",
+    "css-minify": "cleancss --level 1 --format breaksWith=lf --source-map --source-map-inline-sources dist/",
+    "process-styles": "npm run compile-styles && npm run css-minify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bonbombs/speedrun-overlay.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bonbombs/speedrun-overlay/issues"
+  },
+  "homepage": "https://github.com/bonbombs/speedrun-overlay#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "express-ws": "^5.0.2"
+  },
+  "devDependencies": {
+    "clean-css-cli": "^5.5.2",
+    "node-sass": "^7.0.1"
+  }
+}

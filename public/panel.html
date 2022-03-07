@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <title>Speedrun Overlay Setting Panel</title>
+        <script src="js/zepto.min.js"></script>
+    </head>
+
+    <body>
+        <button onclick="startTimer()">START</button>
+        <button onclick="resetTimer()">RESET</button>
+        <br/>
+        <label for="userA">User A Name</label>
+        <input name="userA" type="text"/>
+        <label for="userB">User B Name</label>
+        <input name="userB" type="text"/>
+        <br/>
+        <textarea name="partsList"></textarea>
+        
+    </body>
+
+    <script>
+        $(document).ready(() => {
+            let speedRunPanelSettings = localStorage.getItem("speedrun-panel-settings");
+            if (speedRunPanelSettings) {
+                speedRunPanelSettings = JSON.parse(speedRunPanelSettings);
+                for (var settingName in speedRunPanelSettings) {
+                    $(`[name="${settingName}"]`).val(speedRunPanelSettings[settingName]);
+                }
+            }
+        });
+
+        function startTimer() {
+            $.post("/start");
+        }
+        function resetTimer() {
+            let usernames = [];
+            $("input").forEach(element => {
+                usernames.push($(element).val());
+            });
+            let parts = $("textarea").val().split("\n");
+            $.ajax({
+                type: 'POST',
+                url: '/reset',
+                // post payload:
+                data: JSON.stringify({ users: usernames, parts: parts }),
+                contentType: 'application/json',
+                success: (data) => {
+                    console.log(data);
+                }
+            });
+
+            let speedRunPanelSettings = {};
+
+            $("[name]").forEach((el) => {
+                speedRunPanelSettings[$(el).attr("name")] = $(el).val();
+            });
+
+            localStorage.setItem("speedrun-panel-settings", JSON.stringify(speedRunPanelSettings));
+        }
+    </script>
+</html>
