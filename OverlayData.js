@@ -35,6 +35,7 @@ class OverlayData {
     }
 
     reset(users, parts) {
+        this.userData = {};
         if (users) {
             users.forEach(user => {
                 let partList = [];
