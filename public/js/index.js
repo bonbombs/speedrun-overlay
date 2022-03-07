@@ -10,16 +10,16 @@ $(document).ready(function () {
 		if (e.keyCode == 49) {
 			console.log($(".userRow.current").data("part"))
 			$.post(`/update/${users[0]}/${$(".userRow[data-user='" + users[0] + "'].current").data("part")}`, (data) => {
-				console.log(data)
-				USER_DATA = data.userData;
-				updateStopwatch(users[0], data.userData[users[0]].timerParts);
+				// console.log(data)
+				// USER_DATA = data.userData;
+				// updateStopwatch(users[0], data.userData[users[0]].timerParts);
 			});
 		}
 		if (e.keyCode == 50) {
 			$.post(`/update/${users[1]}/${$(".userRow[data-user='" + users[1] + "'].current").data("part")}`, (data) => {
-				console.log(data)
-				USER_DATA = data.userData;
-				updateStopwatch(users[1], data.userData[users[1]].timerParts);
+				// console.log(data)
+				// USER_DATA = data.userData;
+				// updateStopwatch(users[1], data.userData[users[1]].timerParts);
 			});
 		}
 	}
@@ -56,6 +56,11 @@ $(document).ready(function () {
 				for (var user in USER_DATA) {
 					$("#users").append(createUserOverlay(user));
 				}
+			}
+
+			if (data.type == "UPDATE_TIMER") {
+				USER_DATA = data.data.userData;
+				updateStopwatch(data.user, data.userData[data.user].timerParts);
 			}
 		}
 		catch (e) {
