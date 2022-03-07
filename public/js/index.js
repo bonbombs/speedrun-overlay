@@ -39,7 +39,7 @@ $(document).ready(function () {
 				cancelAnimationFrame(timerRAF);
 				USER_DATA = data.data.userData;
 				for (var user in USER_DATA) {
-					TIMER[user] = { startTime: data.data.startTime, time: [0, 0, 0, 0] };
+					TIMER[user] = { startTime: data.data.startTime, time: [0, 0, 0] };
 					$(`[data-user="${user}"][data-part="${USER_DATA[user].timerParts[0].stopName}"]`).addClass("current");
 				}
 
@@ -80,7 +80,7 @@ function createUserOverlay (user) {
 		row.toggleClass("current", isCurrent);
 		if (part.stopTime && part.startTime) {
 			row.addClass("done");
-			row.find(".userRow_time").text(getDiff(part.startTime, part.stopTime));
+			row.find(".userRow_time").text(getDiff(part.startTime, part.stopTime, false));
 		}
 		rows.append(row);
 	});
@@ -140,7 +140,7 @@ function triggerFinalTime (user, startTime, finalTime) {
 	userBlock.append(
 		`<div class="userRow final" data-user="${user}">
 			<div class="userRow_title">FINAL TIME</div>
-			<div class="userRow_time">${getDiff(startTime, finalTime)}</div>
+			<div class="userRow_time">${getDiff(startTime, finalTime, true)}</div>
 		</div>`
 	)
 }
@@ -156,17 +156,17 @@ function timerCycleUser (user) {
 	let timeDiff = new Date(Date.now() - TIMER[user].startTime);
 	
 
-	TIMER[user].time[0] = timeDiff.getUTCHours();
-	TIMER[user].time[1] = timeDiff.getUTCMinutes();
-	TIMER[user].time[2] = timeDiff.getUTCSeconds();
-	TIMER[user].time[3] = timeDiff.getUTCMilliseconds();
+	// TIMER[user].time[0] = timeDiff.getUTCHours();
+	TIMER[user].time[0] = timeDiff.getUTCMinutes();
+	TIMER[user].time[1] = timeDiff.getUTCSeconds();
+	TIMER[user].time[2] = timeDiff.getUTCMilliseconds();
 
-	$(`#users [data-user=${user}].current`).find(".userRow_time").html(TIMER[user].time.map((item, i) => {
-		return item.toString().padStart(i === 3 ? 3 : 2, 0);
+	$(`#users [data-user=${user}].current`).find(".userRow_time").html(TIMER[user].time.map((item, i, array) => {
+		return item.toString().padStart((i === array.length - 1) ? 3 : 2, 0);
 	}).join(":"));
 }
 
-function getDiff (startTime, stopTime) {
+function getDiff (startTime, stopTime, showHours) {
 	let timeDiff = new Date(stopTime - startTime);
 	let timeArray = [0, 0, 0, 0];
 	timeArray[0] = timeDiff.getUTCHours();
@@ -174,8 +174,14 @@ function getDiff (startTime, stopTime) {
 	timeArray[2] = timeDiff.getUTCSeconds();
 	timeArray[3] = timeDiff.getUTCMilliseconds();
 
-	return timeArray.map((item, i) => {
-		return item.toString().padStart(i === 3 ? 3 : 2, 0);
+	// if (!showHours) {
+	// 	timeArray = timeArray.slice(1);
+	// }
+
+	console.log(timeArray)
+
+	return timeArray.map((item, i, array) => {
+		return item.toString().padStart((i === array.length - 1) ? 3 : 2, 0);
 	}).join(":");
 }
 

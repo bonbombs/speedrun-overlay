@@ -1,11 +1,16 @@
+body {
+  background-image: url(../image/bg.jpeg);
+  background-repeat: repeat;
+  background-size: 350px 350px;
+}
+
 #overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  font-size: 28px;
-  background: linear-gradient(110.1deg, #1e0253 44.2%, #c637a0 138.2%);
+  font-size: 32px;
 }
 
 #users {
@@ -24,17 +29,23 @@
 #users .userBlock {
   box-sizing: border-box;
   padding: 1em;
-  filter: drop-shadow(0 0 0.75rem yellow);
-  background: linear-gradient(90deg, #94bbe9 0%, rgba(238, 174, 202, 0) 100%);
+  min-width: 250px;
+  filter: drop-shadow(0 0 0.75rem #fdffa0);
+  background: linear-gradient(90deg, #007dff 0%, rgba(238, 174, 202, 0) 100%);
 }
 
 #users .userBlock:nth-child(2n) {
   text-align: right;
-  background: linear-gradient(90deg, rgba(238, 174, 202, 0) 0%, #94bbe9 100%);
+  background: linear-gradient(90deg, rgba(238, 174, 202, 0) 0%, #007dff 100%);
 }
 
 #users .userBlock:nth-child(2n) .userRow {
   transform-origin: right;
+}
+
+#users .userBlock:nth-child(2n) .user_title {
+  margin-left: 1em;
+  margin-right: 0;
 }
 
 #users .userBlock .user_title {
@@ -42,7 +53,11 @@
   padding: 0.25em 0;
   border-bottom: 2px solid rgba(255, 255, 255, 0.5);
   margin-bottom: 0.5em;
+  margin-right: 1em;
+  margin-left: 0;
   font-weight: 700;
+  color: #fdffa0;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
 }
 
 #users .userRow {
@@ -62,6 +77,11 @@
   animation-iteration-count: 3;
 }
 
+#users .userRow.final .userRow_title {
+  color: #fdffa0;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+}
+
 #users .userRow .userRow_title {
   font-weight: 600;
 }
@@ -69,6 +89,9 @@
 #users .userRow .userRow_time {
   font-variant: slashed-zero;
   font-family: 'Share Tech Mono', monospace;
+  color: white;
+  text-shadow: 1px 1px 0px black;
+  font-size: 0.8em;
 }
 
 @keyframes userRowFinish {
