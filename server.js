@@ -1,20 +1,23 @@
 const express = require('express')
-const app = express()
+const app = express();
 const expressWs = require('express-ws')(app)
+const path = require('path')
+const http = require('http');
 const OverlayData = require('./server/OverlayData')
 const port = 3000
 
 const overlayData = new OverlayData(['bon', 'tom'], ['partA', 'partB', 'partC']);
 
-app.ws('/socket', function(ws, req) {
-    ws.on('message', function(msg) {
-        ws.send(msg);
-    });
-});
+app.use('/', express.static(path.join(__dirname, 'public')))
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', "index.html"));
+})
 
 app.get('/start', (req, res) => {
     console.log(req.params)
     overlayData.update(req.params.user, req.params.part);
+    updateAllUsers('START');
     res.json(overlayData);
 });
 
@@ -22,9 +25,29 @@ app.get('/update/:user', (req, res) => {
     console.log(req.params)
     overlayData.stopForUser(req.params.user);
     console.log(JSON.stringify(overlayData));
+    updateAllUsers('UPDATE');
     res.sendStatus(200);
+});
+
+app.ws('/socket', function(ws, req) {
+    ws.on('message', function(msg) {
+        ws.send(msg);
+    });
+    ws.on('open', function(){
+        console.log('open!');
+    })
 });
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 });
+
+
+function updateAllUsers(type){
+    expressWs.getWss().clients.forEach((ws)=> {
+        ws.send(JSON.stringify({
+            type: type,
+            data: overlayData
+        }));
+    })
+}

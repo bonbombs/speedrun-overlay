@@ -25,41 +25,37 @@ $(document).ready(function () {
 	}
 
 	socket.addEventListener('open', function (event) {
+		console.log('Opening socket...');
 		socket.send('Hello Server!');
 	});
 	
 	// Listen for messages
 	socket.addEventListener('message', function (event) {
 		console.log('Message from server ', event.data);
-
 		try {
 			let data = JSON.parse(event.data);
-
+			console.log(data);
 			if (data.type == "START_TIMER") {
 				cancelAnimationFrame(timerRAF);
-				USER_DATA = data.data.userData;
+				USER_DATA = data.data.users;
 				for (var user in USER_DATA) {
 					TIMER[user] = { startTime: data.data.startTime, time: [0, 0, 0] };
 					$(`[data-user="${user}"][data-part="${USER_DATA[user].timerParts[0].stopName}"]`).addClass("current");
 				}
-
 				timerCycle();
 			}
 
 			if (data.type == "RESET_TIMER") {
 				cancelAnimationFrame(timerRAF);
-
-				USER_DATA = data.data.userData;
-
+				USER_DATA = data.data.users;
 				$("#users").empty();
-
 				for (var user in USER_DATA) {
 					$("#users").append(createUserOverlay(user));
 				}
 			}
 		}
 		catch (e) {
-
+			console.error(e);
 		}
 	});
 });
