@@ -17,7 +17,14 @@ app.get('/', (req, res) => {
 app.get('/start', (req, res) => {
     console.log(req.params)
     overlayData.update(req.params.user, req.params.part);
-    updateAllUsers('START');
+    updateAllUsers('START_TIMER');
+    res.json(overlayData);
+});
+
+app.get('/reset', (req, res) => {
+    console.log(req.params)
+    overlayData.reset();
+    updateAllUsers('RESET_TIMER');
     res.json(overlayData);
 });
 
@@ -25,7 +32,7 @@ app.get('/update/:user', (req, res) => {
     console.log(req.params)
     overlayData.stopForUser(req.params.user);
     console.log(JSON.stringify(overlayData));
-    updateAllUsers('UPDATE');
+    updateAllUsers('UPDATE_STATUS');
     res.sendStatus(200);
 });
 

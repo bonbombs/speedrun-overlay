@@ -26,7 +26,7 @@ $(document).ready(function () {
 
 	socket.addEventListener('open', function (event) {
 		console.log('Opening socket...');
-		socket.send('Hello Server!');
+		socket.send(JSON.stringify({type: 'OPEN'}));
 	});
 	
 	// Listen for messages
@@ -35,6 +35,26 @@ $(document).ready(function () {
 		try {
 			let data = JSON.parse(event.data);
 			console.log(data);
+			/* Example data
+			{
+				"type": "UPDATE_STATUS",
+				"data": {
+					"startTime": 1649811540000,
+					"users": {
+						"bon": [
+							{"name": "partA", "timestamp": 1649811542416},
+							{"name": "partB", "timestamp": 0},
+							{"name": "partC", "timestamp": 0}
+						],
+						"tom": [
+							{"name": "partA", "timestamp": 0},
+							{"name": "partB", "timestamp": 0},
+							{"name": "partC", "timestamp": 0}
+						]
+					}
+				}
+			}
+			*/
 			if (data.type == "START_TIMER") {
 				cancelAnimationFrame(timerRAF);
 				USER_DATA = data.data.users;
@@ -44,14 +64,15 @@ $(document).ready(function () {
 				}
 				timerCycle();
 			}
-
-			if (data.type == "RESET_TIMER") {
+			else if (data.type == "RESET_TIMER") {
 				cancelAnimationFrame(timerRAF);
 				USER_DATA = data.data.users;
 				$("#users").empty();
 				for (var user in USER_DATA) {
 					$("#users").append(createUserOverlay(user));
 				}
+			}else if (data.type == "UPDATE_STATUS"){
+				// TODO: render state
 			}
 		}
 		catch (e) {
@@ -150,8 +171,6 @@ function timerCycle() {
 
 function timerCycleUser (user) {
 	let timeDiff = new Date(Date.now() - TIMER[user].startTime);
-	
-
 	// TIMER[user].time[0] = timeDiff.getUTCHours();
 	TIMER[user].time[0] = timeDiff.getUTCMinutes();
 	TIMER[user].time[1] = timeDiff.getUTCSeconds();
@@ -169,13 +188,10 @@ function getDiff (startTime, stopTime, showHours) {
 	timeArray[1] = timeDiff.getUTCMinutes();
 	timeArray[2] = timeDiff.getUTCSeconds();
 	timeArray[3] = timeDiff.getUTCMilliseconds();
-
 	// if (!showHours) {
 	// 	timeArray = timeArray.slice(1);
 	// }
-
 	console.log(timeArray)
-
 	return timeArray.map((item, i, array) => {
 		return item.toString().padStart((i === array.length - 1) ? 3 : 2, 0);
 	}).join(":");
