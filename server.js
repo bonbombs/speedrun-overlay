@@ -16,12 +16,12 @@ app.get('/', (req, res) => {
 
 app.get('/start', (req, res) => {
     console.log(req.params)
-    overlayData.update(req.params.user, req.params.part);
+    overlayData.start();
     updateAllUsers('START_TIMER');
     res.json(overlayData);
 });
 
-app.get('/reset', (req, res) => {
+app.post('/reset', (req, res) => {
     console.log(req.params)
     overlayData.reset();
     updateAllUsers('RESET_TIMER');

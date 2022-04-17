@@ -41,7 +41,7 @@ app.post('/create/:user', (req, res) => {
     res.json(latestData);
 })
 
-app.get('/update/:user/:part', (req, res) => {
+app.post('/update/:user/:part', (req, res) => {
     console.log(req.params)
     latestData.update(req.params.user, req.params.part);
     res.json(latestData);

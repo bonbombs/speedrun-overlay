@@ -5,25 +5,6 @@ $(document).ready(function () {
 		console.log(data);
 	});
 
-	window.onkeyup = (e) => {
-		let users = Object.keys(USER_DATA);
-		if (e.keyCode == 49) {
-			console.log($(".userRow.current").data("part"))
-			$.post(`/update/${users[0]}/${$(".userRow[data-user='" + users[0] + "'].current").data("part")}`, (data) => {
-				console.log(data)
-				USER_DATA = data.userData;
-				updateStopwatch(users[0], data.userData[users[0]].timerParts);
-			});
-		}
-		if (e.keyCode == 50) {
-			$.post(`/update/${users[1]}/${$(".userRow[data-user='" + users[1] + "'].current").data("part")}`, (data) => {
-				console.log(data)
-				USER_DATA = data.userData;
-				updateStopwatch(users[1], data.userData[users[1]].timerParts);
-			});
-		}
-	}
-
 	socket.addEventListener('open', function (event) {
 		console.log('Opening socket...');
 		socket.send(JSON.stringify({type: 'OPEN'}));
@@ -60,7 +41,7 @@ $(document).ready(function () {
 				USER_DATA = data.data.users;
 				for (var user in USER_DATA) {
 					TIMER[user] = { startTime: data.data.startTime, time: [0, 0, 0] };
-					$(`[data-user="${user}"][data-part="${USER_DATA[user].timerParts[0].stopName}"]`).addClass("current");
+					$(`[data-user="${user}"][data-part="${USER_DATA[user][0].name}"]`).addClass("current");
 				}
 				timerCycle();
 			}
@@ -72,7 +53,13 @@ $(document).ready(function () {
 					$("#users").append(createUserOverlay(user));
 				}
 			}else if (data.type == "UPDATE_STATUS"){
-				// TODO: render state
+				cancelAnimationFrame(timerRAF);
+				console.log(data)
+				USER_DATA = data.data.users;
+				let users = Object.keys(USER_DATA);
+				users.forEach((user) => {
+					updateStopwatch(users, USER_DATA[user]);
+				});
 			}
 		}
 		catch (e) {
@@ -88,10 +75,10 @@ function createUserOverlay (user) {
 		<div class="user_title">${user}</div>
 		
 	</div>`);
-	userInfo.timerParts.forEach(part => {
+	userInfo.forEach(part => {
 		let isCurrent = part.startTime !== undefined && part.stopTime === undefined;
-		let row = $(`<div class="userRow ${isCurrent ? "current" : ""}" data-user="${user}" data-part="${part.stopName}">
-			<div class="userRow_title">${part.stopName}</div>
+		let row = $(`<div class="userRow ${isCurrent ? "current" : ""}" data-user="${user}" data-part="${part.name}">
+			<div class="userRow_title">${part.name}</div>
 			<div class="userRow_time"></div>
 		</div>`);
 		row.toggleClass("current", isCurrent);
@@ -138,17 +125,17 @@ function updateStopwatch (user, timerParts) {
 	let userRows = $(`.userRow[data-user="${user}"`);
 	for (var i = 0; i < timerParts.length; i++) {
 		if (timerParts[i].startTime && timerParts[i].stopTime) {
-			userRows.filter(`[data-part="${timerParts[i].stopName}"]`).addClass("done");
-			userRows.filter(`[data-part="${timerParts[i].stopName}"]`).removeClass("current");
+			userRows.filter(`[data-part="${timerParts[i].name}"]`).addClass("done");
+			userRows.filter(`[data-part="${timerParts[i].name}"]`).removeClass("current");
 			numberDone++;
 		}
 		else if (timerParts[i].startTime) {
 			TIMER[user].startTime = timerParts[i].startTime;
-			userRows.filter(`[data-part="${timerParts[i].stopName}"]`).addClass("current");
+			userRows.filter(`[data-part="${timerParts[i].name}"]`).addClass("current");
 		}
 	}
 	if (numberDone === (timerParts.length)) {
-		triggerFinalTime(user, USER_DATA[user].timerParts[0].startTime, USER_DATA[user].timerParts[timerParts.length - 1].stopTime);
+		triggerFinalTime(user, USER_DATA[user][0].startTime, USER_DATA[user][timerParts.length - 1].stopTime);
 	}
 }
 

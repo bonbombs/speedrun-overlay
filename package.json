@@ -21,9 +21,9 @@
   },
   "homepage": "https://github.com/bonbombs/speedrun-overlay#readme",
   "dependencies": {
+    "enmap": "^5.8.7",
     "express": "^4.17.3",
-    "express-ws": "^5.0.2",
-    "enmap": "^5.8.7"
+    "express-ws": "^5.0.2"
   },
   "devDependencies": {
     "clean-css-cli": "^5.5.2",
