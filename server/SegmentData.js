@@ -6,17 +6,17 @@ class SegmentData{
      */
     constructor(partName){
         this.name = partName;
-        this.timestamp = 0;
+        this.startTime = 0;
+        this.stopTime = 0;
     }
 
-    lockTime(){
-        this.timestamp = Date.now();
+    lock(){
+        this.stopTime = Date.now();
     }
 
-    get time(){
-        return this.timestamp;
+    start(){
+        this.startTime = Date.now();
     }
-
 }
 
 module.exports = SegmentData
