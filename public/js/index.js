@@ -36,7 +36,15 @@ $(document).ready(function () {
 				}
 			}
 			*/
-			if (data.type == "START_TIMER") {
+			if (data.type == "SETUP_OVERLAY") {
+				cancelAnimationFrame(timerRAF);
+				USER_DATA = data.data.users;
+				$("#users").empty();
+				for (var user in USER_DATA) {
+					$("#users").append(createUserOverlay(user));
+				}
+			}
+			else if (data.type == "START_TIMER") {
 				cancelAnimationFrame(timerRAF);
 				USER_DATA = data.data.users;
 				for (var user in USER_DATA) {
@@ -52,13 +60,13 @@ $(document).ready(function () {
 				for (var user in USER_DATA) {
 					$("#users").append(createUserOverlay(user));
 				}
-			}else if (data.type == "UPDATE_STATUS"){
-				cancelAnimationFrame(timerRAF);
+			}
+			else if (data.type == "UPDATE_STATUS"){
 				console.log(data)
 				USER_DATA = data.data.users;
 				let users = Object.keys(USER_DATA);
 				users.forEach((user) => {
-					updateStopwatch(users, USER_DATA[user]);
+					updateStopwatch(user, USER_DATA[user]);
 				});
 			}
 		}
@@ -134,7 +142,7 @@ function updateStopwatch (user, timerParts) {
 			userRows.filter(`[data-part="${timerParts[i].name}"]`).addClass("current");
 		}
 	}
-	if (numberDone === (timerParts.length)) {
+	if (numberDone === (timerParts.length) && userRows.filter(".final").length === 0) {
 		triggerFinalTime(user, USER_DATA[user][0].startTime, USER_DATA[user][timerParts.length - 1].stopTime);
 	}
 }

@@ -21,7 +21,7 @@ class OverlayData{
     start(){
         this.startTime = Date.now();
         for(const [username, user] of Object.entries(this.users)) {
-            const firstPart = user.find(segment => segment.startTime == 0);
+            const firstPart = user.find(segment => segment.startTime === undefined);
             if(firstPart){
                 firstPart.start();
             }
@@ -33,10 +33,10 @@ class OverlayData{
      * @param {string} user 
      */
     stopForUser(user){
-        const part = this.users[user].find(segment => segment.stopTime == 0);
+        const part = this.users[user].find(segment => segment.stopTime === undefined);
         if(part){
             part.lock();
-            const nextPart = this.users[user].find(segment => segment.startTime == 0);
+            const nextPart = this.users[user].find(segment => segment.startTime === undefined);
             if(nextPart){
                 nextPart.start();
             }

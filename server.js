@@ -6,7 +6,9 @@ const http = require('http');
 const OverlayData = require('./server/OverlayData')
 const port = 3000
 
-const overlayData = new OverlayData(['bon', 'tom'], ['partA', 'partB', 'partC']);
+let overlayData = new OverlayData(['bon', 'tom'], ['partA', 'partB', 'partC']);
+
+app.use(express.json())
 
 app.use('/', express.static(path.join(__dirname, 'public')))
 
@@ -16,7 +18,7 @@ app.get('/', (req, res) => {
 
 app.post('/setup', (req, res) => {
     overlayData = new OverlayData(req.body.users, req.body.parts);
-    updateAllUsers('UPDATE_STATUS');
+    updateAllUsers('SETUP_OVERLAY');
     res.sendStatus(200);
 });
 

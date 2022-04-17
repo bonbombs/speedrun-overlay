@@ -6,8 +6,8 @@ class SegmentData{
      */
     constructor(partName){
         this.name = partName;
-        this.startTime = 0;
-        this.stopTime = 0;
+        this.startTime = undefined;
+        this.stopTime = undefined;
     }
 
     lock(){
