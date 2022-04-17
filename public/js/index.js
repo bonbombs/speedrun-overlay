@@ -22,15 +22,15 @@ $(document).ready(function () {
 				"data": {
 					"startTime": 1649811540000,
 					"users": {
-						"bon": [
-							{"name": "partA", "timestamp": 1649811542416},
-							{"name": "partB", "timestamp": 0},
-							{"name": "partC", "timestamp": 0}
+						bon: [
+							SegmentData { name: 'partA', startTime: 0, stopTime: 0 },
+							SegmentData { name: 'partB', startTime: 0, stopTime: 0 },
+							SegmentData { name: 'partC', startTime: 0, stopTime: 0 }
 						],
-						"tom": [
-							{"name": "partA", "timestamp": 0},
-							{"name": "partB", "timestamp": 0},
-							{"name": "partC", "timestamp": 0}
+						tom: [
+							SegmentData { name: 'partA', startTime: 0, stopTime: 0 },
+							SegmentData { name: 'partB', startTime: 0, stopTime: 0 },
+							SegmentData { name: 'partC', startTime: 0, stopTime: 0 }
 						]
 					}
 				}

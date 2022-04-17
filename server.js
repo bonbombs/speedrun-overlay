@@ -14,6 +14,12 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', "index.html"));
 })
 
+app.post('/setup', (req, res) => {
+    overlayData = new OverlayData(req.body.users, req.body.parts);
+    updateAllUsers('UPDATE_STATUS');
+    res.sendStatus(200);
+});
+
 app.get('/start', (req, res) => {
     console.log(req.params)
     overlayData.start();

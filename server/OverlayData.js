@@ -10,17 +10,22 @@ class OverlayData{
     constructor(userList, segmentList){
         this.startTime = 0;
         this.users = {};
-        userList.forEach(user => {
-            this.users[user] = segmentList.map(segment => new SegmentData(segment));
-        })
+        this.reset = function(){
+            userList.forEach(user => {
+                this.users[user] = segmentList.map(segment => new SegmentData(segment));
+            });
+        }
+        this.reset();
     }
 
     start(){
         this.startTime = Date.now();
-    }
-
-    reset(){
-        // TODO
+        for(const [username, user] of Object.entries(this.users)) {
+            const firstPart = user.find(segment => segment.startTime == 0);
+            if(firstPart){
+                firstPart.start();
+            }
+        }
     }
 
     /**
@@ -28,9 +33,13 @@ class OverlayData{
      * @param {string} user 
      */
     stopForUser(user){
-        const part = this.users[user].find(segment => segment.time == 0);
+        const part = this.users[user].find(segment => segment.stopTime == 0);
         if(part){
-            part.lockTime();
+            part.lock();
+            const nextPart = this.users[user].find(segment => segment.startTime == 0);
+            if(nextPart){
+                nextPart.start();
+            }
         }else{
             // finished!
         }
