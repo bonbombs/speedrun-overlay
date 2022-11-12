@@ -1,7 +1,12 @@
-const e = require("express");
-
+/**
+ * Data container for information about the stopwatch overlay
+ */
 class OverlayData {
 
+    /**
+     * 
+     * @param {string[]} users A list of user names
+     */
     constructor(users) {
         this.startTime = Date.now();
         this.userData = {};
@@ -15,14 +20,20 @@ class OverlayData {
         }
     }
 
-    startTimer () {
+    startTimer() {
         this.startTime = Date.now();
         for (var user in this.userData) {
             this.userData[user].timerParts[0].startTime = this.startTime;
         }
     }
 
-    update (user, partName) {
+    /**
+     * 
+     * @param {*} user The user to clock in
+     * @param {*} partName 
+     * @returns {OverlayData} Updated overlay data
+     */
+    update(user, partName) {
         console.log(this.userData)
         let idx = this.userData[user].timerParts.findIndex((part) => { return part.stopName == partName; });
         if (idx >= 0) {

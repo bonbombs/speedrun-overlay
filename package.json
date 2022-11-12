@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile-styles": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 -w sass/ -o public/css/",
     "css-minify": "cleancss --level 1 --format breaksWith=lf --source-map --source-map-inline-sources dist/",
@@ -20,6 +21,7 @@
   },
   "homepage": "https://github.com/bonbombs/speedrun-overlay#readme",
   "dependencies": {
+    "enmap": "^5.8.7",
     "express": "^4.17.3",
     "express-ws": "^5.0.2"
   },

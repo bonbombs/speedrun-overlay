@@ -29,7 +29,7 @@
         });
 
         function startTimer() {
-            $.post("/start");
+            $.get("/start");
         }
         function resetTimer() {
             let usernames = [];
@@ -39,7 +39,7 @@
             let parts = $("textarea").val().split("\n");
             $.ajax({
                 type: 'POST',
-                url: '/reset',
+                url: '/setup',
                 // post payload:
                 data: JSON.stringify({ users: usernames, parts: parts }),
                 contentType: 'application/json',

@@ -1,3 +1,25 @@
+@font-face {
+  font-family: "Ashby";
+  font-weight: bolder;
+  src: url(../fonts/ASHBB.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Ashby";
+  font-weight: bold;
+  src: url(../fonts/ASHBEB.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Ashby";
+  src: url(../fonts/ASHBW.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Crenzo";
+  src: url(../fonts/CRENZO.ttf) format("truetype");
+}
+
 body {
   background-image: url(../image/bg.jpeg);
   background-repeat: repeat;
@@ -20,24 +42,25 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  font-family: 'Smooch Sans', sans-serif;
+  font-family: 'Ashby', sans-serif;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-end;
 }
 
 #users .userBlock {
   box-sizing: border-box;
-  padding: 1em;
+  padding: 0.75em 1em;
   min-width: 250px;
-  filter: drop-shadow(0 0 0.75rem #fdffa0);
-  background: linear-gradient(90deg, #007dff 0%, rgba(238, 174, 202, 0) 100%);
+  filter: drop-shadow(0 0 0.75rem #feffa1);
+  background: linear-gradient(0deg, #008fff 0%, rgba(238, 174, 202, 0) 100%);
+  margin: 0 8.5em;
 }
 
 #users .userBlock:nth-child(2n) {
   text-align: right;
-  background: linear-gradient(90deg, rgba(238, 174, 202, 0) 0%, #007dff 100%);
+  background: linear-gradient(180deg, rgba(238, 174, 202, 0) 0%, #008fff 100%);
 }
 
 #users .userBlock:nth-child(2n) .userRow {
@@ -59,6 +82,14 @@ body {
   font-weight: 700;
   color: #fdffa0;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+  display: none;
+}
+
+#users .user_rows {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-end;
 }
 
 #users .userRow {
@@ -70,16 +101,23 @@ body {
 #users .userRow:not(.current):not(.final) {
   opacity: 0.5;
   transform: translateX(0) scale(0.8);
+  order: 1;
+  height: 1.7em;
 }
 
 #users .userRow.done, #users .userRow.final {
   animation: userRowFinish;
   animation-duration: 0.5s;
   animation-iteration-count: 3;
+  order: 5;
+}
+
+#users .userRow.current {
+  order: 5;
 }
 
 #users .userRow.final .userRow_title {
-  color: #fdffa0;
+  color: #feffa1;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
 }
 
