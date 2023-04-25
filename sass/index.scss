@@ -51,6 +51,7 @@ body {
     height: 100vh;
 
     font-family: 'RomandeADF', sans-serif;
+    font-weight: bolder;
 
     display: flex;
     flex-direction: row;
@@ -78,13 +79,16 @@ body {
             .user_title {
                 margin-left: 1em;
                 margin-right: 0;
+            }
 
+            .userRow_title {
                 &::before {
                     content: none;
                 }
 
                 &::after {
                     content: '♡';
+                    padding-right: 0;
                     color: $pumuwublu;
                 }
             }
@@ -145,16 +149,29 @@ body {
 
         .userRow_title {
             font-weight: 600;
+            color: white;
             &::before {
                 content: '♡';
-                color: $pumuwublu;
+                padding-left: 0 !important;
             }
+            &::before, &::after {
+                padding: 10px;
+                font-size: 23px;
+                color: $pumuwublu;
+                text-shadow: none;
+            }
+            text-shadow:    0px 0px 2px $pumuwumaroon, 
+                            1px 1px 2px $pumuwumaroon, 
+                            0px -1px 2px $pumuwumaroon,
+                            -1px 0px 2px $pumuwumaroon,
+                            1px 0px 2px $pumuwumaroon, 
+                            0px 1px 2px $pumuwumaroon;
         }
         .userRow_time {
             font-variant: slashed-zero;
-            font-family: 'Gloria', monospace;
+            font-family: monospace;
             color: white;
-            text-shadow: 1px 1px 0px black;
+            text-shadow: 1px 1px 0px $pumuwumaroon;
             font-size: 0.8em;
         }
     }
@@ -165,7 +182,7 @@ body {
         color: inherit;
     }
     50% {
-        color: red;
+        color: $pumuwured;
     }
     100% {
         color: inherit;
