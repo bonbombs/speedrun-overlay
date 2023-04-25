@@ -1,27 +1,30 @@
-$pumuwublu: #008fff;
-$pumuwublulite: #008fff;
-$pumuwucyan: #1dfedc;
-$pumuwucyanlite: #9dfffe;
-$pumuwuyellow: #feffa1;
-$pumuwuolive: #575a0d;
+$pumuwublu: #0f05ff;
+$pumuwupurple: #8307ff;
+$pumuwuyellow: #fff8c1;
+$pumuwugold: #ffd04a;
+$pumuwured: #ff1f00;
+$pumuwupink: #ff28a3;
+$pumuwupinklite: #ff9ad4;
+$pumuwumaroon: #86004c;
+$pumuwumaroonlite: #9d316e;
 
 @font-face {
-    font-family: "Ashby";
+    font-family: "RomandeADF";
     font-weight: bolder;
-    src: url(../fonts/ASHBB.ttf) format("truetype");
+    src: url(../fonts/RomandeADFStyleStd-DemiBold.ttf) format("truetype");
 }
 @font-face {
-    font-family: "Ashby";
+    font-family: "RomandeADF";
     font-weight: bold;
-    src: url(../fonts/ASHBEB.ttf) format("truetype");
+    src: url(../fonts/RomandeADFStyleStd-Regular.ttf) format("truetype");
 }
 @font-face {
-    font-family: "Ashby";
-    src: url(../fonts/ASHBW.ttf) format("truetype");
+    font-family: "RomandeADF";
+    src: url(../fonts/RomandeADFStd-Regular.ttf) format("truetype");
 }
 @font-face {
-    font-family: "Crenzo";
-    src: url(../fonts/CRENZO.ttf) format("truetype");
+    font-family: "Gloria";
+    src: url(../fonts/Gloria.ttf) format("truetype");
 }
 
 body {
@@ -47,7 +50,7 @@ body {
     width: 100vw;
     height: 100vh;
 
-    font-family: 'Ashby', sans-serif;
+    font-family: 'RomandeADF', sans-serif;
 
     display: flex;
     flex-direction: row;
@@ -60,13 +63,13 @@ body {
         min-width: 250px;
 
         filter: drop-shadow(0 0 0.75rem $pumuwuyellow);
-        background: linear-gradient(0deg, rgba($pumuwublu,1) 0%, rgba(238,174,202,0) 100%);
+        background: linear-gradient(0deg, rgba($pumuwupink,1) 0%, rgba($pumuwupink,0) 100%);
         
         margin: 0 8.5em;
 
         &:nth-child(2n) {
             text-align: right;
-            background: linear-gradient(180deg, rgba(238,174,202,0) 0%, rgba($pumuwublu,1) 100%);
+            background: linear-gradient(180deg, rgba($pumuwupink,0) 0%, rgba($pumuwupink,1) 100%);
         
             .userRow {
                 transform-origin: right;
@@ -75,6 +78,15 @@ body {
             .user_title {
                 margin-left: 1em;
                 margin-right: 0;
+
+                &::before {
+                    content: none;
+                }
+
+                &::after {
+                    content: '♡';
+                    color: $pumuwublu;
+                }
             }
         }
 
@@ -87,7 +99,7 @@ body {
             margin-left: 0;
             font-weight: 700;
 
-            color: #fdffa0;
+            color: $pumuwumaroon;
             text-shadow: 1px 1px 1px rgba(black, 0.8);
 
             display: none;
@@ -133,10 +145,14 @@ body {
 
         .userRow_title {
             font-weight: 600;
+            &::before {
+                content: '♡';
+                color: $pumuwublu;
+            }
         }
         .userRow_time {
             font-variant: slashed-zero;
-            font-family: 'Share Tech Mono', monospace;
+            font-family: 'Gloria', monospace;
             color: white;
             text-shadow: 1px 1px 0px black;
             font-size: 0.8em;

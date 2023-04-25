@@ -1,23 +1,23 @@
 @font-face {
-  font-family: "Ashby";
+  font-family: "RomandeADF";
   font-weight: bolder;
-  src: url(../fonts/ASHBB.ttf) format("truetype");
+  src: url(../fonts/RomandeADFStyleStd-DemiBold.ttf) format("truetype");
 }
 
 @font-face {
-  font-family: "Ashby";
+  font-family: "RomandeADF";
   font-weight: bold;
-  src: url(../fonts/ASHBEB.ttf) format("truetype");
+  src: url(../fonts/RomandeADFStyleStd-Regular.ttf) format("truetype");
 }
 
 @font-face {
-  font-family: "Ashby";
-  src: url(../fonts/ASHBW.ttf) format("truetype");
+  font-family: "RomandeADF";
+  src: url(../fonts/RomandeADFStd-Regular.ttf) format("truetype");
 }
 
 @font-face {
-  font-family: "Crenzo";
-  src: url(../fonts/CRENZO.ttf) format("truetype");
+  font-family: "Gloria";
+  src: url(../fonts/Gloria.ttf) format("truetype");
 }
 
 body {
@@ -42,7 +42,7 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  font-family: 'Ashby', sans-serif;
+  font-family: 'RomandeADF', sans-serif;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -53,14 +53,14 @@ body {
   box-sizing: border-box;
   padding: 0.75em 1em;
   min-width: 250px;
-  filter: drop-shadow(0 0 0.75rem #feffa1);
-  background: linear-gradient(0deg, #008fff 0%, rgba(238, 174, 202, 0) 100%);
+  filter: drop-shadow(0 0 0.75rem #fff8c1);
+  background: linear-gradient(0deg, #ff28a3 0%, rgba(255, 40, 163, 0) 100%);
   margin: 0 8.5em;
 }
 
 #users .userBlock:nth-child(2n) {
   text-align: right;
-  background: linear-gradient(180deg, rgba(238, 174, 202, 0) 0%, #008fff 100%);
+  background: linear-gradient(180deg, rgba(255, 40, 163, 0) 0%, #ff28a3 100%);
 }
 
 #users .userBlock:nth-child(2n) .userRow {
@@ -80,7 +80,7 @@ body {
   margin-right: 1em;
   margin-left: 0;
   font-weight: 700;
-  color: #fdffa0;
+  color: #9d316e;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
   display: none;
 }
@@ -117,7 +117,7 @@ body {
 }
 
 #users .userRow.final .userRow_title {
-  color: #feffa1;
+  color: #fff8c1;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
 }
 
@@ -127,7 +127,7 @@ body {
 
 #users .userRow .userRow_time {
   font-variant: slashed-zero;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'Gloria', monospace;
   color: white;
   text-shadow: 1px 1px 0px black;
   font-size: 0.8em;
